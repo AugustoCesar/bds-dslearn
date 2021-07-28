@@ -19,28 +19,26 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_user")
-public class User implements Serializable{
+public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private String email;
 	private String password;
-	
+
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "tb_user_role",
-		joinColumns = @JoinColumn(name = "user_id"),
-		inverseJoinColumns = @JoinColumn(name = "role_id"))
-	Set<Role> roles = new HashSet<>();//Set para garantir que não possa ter repetiçãode roles na coleção
-	
+	@JoinTable(name = "tb_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	Set<Role> roles = new HashSet<>();// Set para garantir que não possa ter repetiçãode roles na coleção
+
 	@OneToMany(mappedBy = "user")
 	private List<Notification> notifications = new ArrayList<>();
 
 	public User() {
 	}
-	
+
 	public User(Long id, String name, String email, String password, Set<Role> roles) {
 		super();
 		this.id = id;
@@ -86,8 +84,8 @@ public class User implements Serializable{
 		return roles;
 	}
 
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
+	public List<Notification> getNotifications() {
+		return notifications;
 	}
 
 	@Override

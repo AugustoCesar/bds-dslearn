@@ -30,7 +30,9 @@ public class User implements Serializable {
 	private String password;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "tb_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@JoinTable(name = "tb_user_role",// 
+		joinColumns = @JoinColumn(name = "user_id"),//
+		inverseJoinColumns = @JoinColumn(name = "role_id"))//
 	Set<Role> roles = new HashSet<>();// Set para garantir que não possa ter repetiçãode roles na coleção
 
 	@OneToMany(mappedBy = "user")
@@ -39,13 +41,12 @@ public class User implements Serializable {
 	public User() {
 	}
 
-	public User(Long id, String name, String email, String password, Set<Role> roles) {
+	public User(Long id, String name, String email, String password) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.roles = roles;
 	}
 
 	public Long getId() {
